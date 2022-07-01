@@ -92,6 +92,7 @@ function App() {
       {notes &&
         notes.map((noteItem, index) => {
           return (
+            //if you are using Mongoose, change id to _id
             <Note
               key={noteItem.id}
               id={noteItem.id}

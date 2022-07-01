@@ -9,8 +9,8 @@ function App() {
   const [notes, setNotes] = useState([]);
 
   const url = "http://localhost:3001/";
-
-  async function fetchNotes() {
+  
+  async function fetchNotes(){
     axios
       .get(url)
       .then((resp) => {
@@ -18,12 +18,13 @@ function App() {
       })
       .catch((error) => console.log("error occured: " + error.message));
   }
-
+ 
   useEffect(() => {
     fetchNotes();
   }, []);
 
   function addNote(newNote) {
+   
     axios
       .post(url, newNote)
       .then((resp) => {
@@ -32,15 +33,17 @@ function App() {
         });
       })
       .catch((error) => console.log("error occured: " + error.message));
+  
   }
 
   function deleteNote(id) {
+
     axios
       .delete(`${url}${id}`)
       .then(() => {
         setNotes((prevNotes) => {
           return prevNotes.filter((noteItem) => {
-            return noteItem._id !== id;
+            return noteItem.id !== id;
           });
         });
       })
@@ -49,11 +52,11 @@ function App() {
 
   function editTitleNote(id, titletext) {
     axios
-      .patch(`${url}${id}`, {title: titletext})
+      .put(`${url}${id}`, {title: titletext})
       .then(() => {
         setNotes((prevNotes) => {
           return prevNotes.map(object => {
-            if (object._id === id) {
+            if (object.id === id) {
               return {...object, title: titletext};
             }
             return object;
@@ -67,11 +70,11 @@ function App() {
 
   function editContentNote(id, contenttext) {
     axios
-      .patch(`${url}${id}`, {content: contenttext})
+      .put(`${url}${id}`, {content: contenttext})
       .then(() => {
         setNotes((prevNotes) => {
           return prevNotes.map(object => {
-            if (object._id === id) {
+            if (object.id === id) {
               return {...object, content: contenttext};
             }
             return object;
@@ -90,8 +93,8 @@ function App() {
         notes.map((noteItem, index) => {
           return (
             <Note
-              key={index}
-              id={noteItem._id}
+              key={noteItem.id}
+              id={noteItem.id}
               title={noteItem.title}
               content={noteItem.content}
               date={noteItem.updatedAt}

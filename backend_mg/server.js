@@ -19,7 +19,6 @@ var cors = require("cors");
 app.use(cors());
 
 const port = process.env.PORT || 3001;
-//app.use(express.static("public"));
 
 //middleware if no use of body-parser
 app.use(express.json());

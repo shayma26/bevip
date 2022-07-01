@@ -28,9 +28,7 @@ const getNote = async (req, res) => {
 //create new note
 const createNote = async (req, res) => {
     const {title, content} = req.body;
-    console.log(title);
-    console.log("aaanndd this is the content " + content);
-  
+    
     //add doc to DB
     try{
       const newNote = await Note.create({title, content});
